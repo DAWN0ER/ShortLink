@@ -1,7 +1,7 @@
 package com.dawn.shortlink.dao;
 
 import com.dawn.shortlink.dao.mappers.UrlMapper;
-import com.dawn.shortlink.dao.mappers.domain.UrlDO;
+import com.dawn.shortlink.domain.UrlDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

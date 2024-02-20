@@ -1,9 +1,9 @@
 package com.dawn.shortlink.service;
 
 import com.dawn.shortlink.dao.ShortUrlDao;
-import com.dawn.shortlink.dao.mappers.domain.Base62Code;
-import com.dawn.shortlink.dao.mappers.domain.UrlDO;
-import com.dawn.shortlink.dao.mappers.domain.UrlVO;
+import com.dawn.shortlink.domain.Base62Code;
+import com.dawn.shortlink.domain.UrlDO;
+import com.dawn.shortlink.domain.UrlVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

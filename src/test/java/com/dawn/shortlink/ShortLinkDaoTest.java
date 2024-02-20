@@ -1,7 +1,7 @@
 package com.dawn.shortlink;
 
 import com.dawn.shortlink.dao.ShortUrlDao;
-import com.dawn.shortlink.dao.mappers.domain.UrlDO;
+import com.dawn.shortlink.domain.UrlDO;
 import com.dawn.shortlink.service.UrlProcessService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package com.dawn.shortlink.dao.mappers.domain;
+package com.dawn.shortlink.domain;
 
 import com.google.common.hash.Hashing;
 import org.springframework.stereotype.Component;

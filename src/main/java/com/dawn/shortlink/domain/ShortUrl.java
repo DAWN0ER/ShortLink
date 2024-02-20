@@ -1,4 +1,4 @@
-package com.dawn.shortlink.dao.mappers.domain;
+package com.dawn.shortlink.domain;
 
 import java.util.Date;
 

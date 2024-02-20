@@ -1,6 +1,6 @@
 package com.dawn.shortlink.controller;
 
-import com.dawn.shortlink.dao.mappers.domain.UrlVO;
+import com.dawn.shortlink.domain.UrlVO;
 import com.dawn.shortlink.service.UrlProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
