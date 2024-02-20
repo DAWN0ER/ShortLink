@@ -10,7 +10,7 @@ Base62 编码解码器
 
  */
 @Component
-public class Base62Code {
+public final class Base62CodeUtil {
 
     private static final long BASE = 62;
     private static final byte[] KEY_LIST = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".getBytes();
@@ -19,7 +19,7 @@ public class Base62Code {
     /*
     编码器
      */
-    public String encode(String originUrl){
+    public static String encode(String originUrl){
         return encodeFormLong(murmurHashString(originUrl));
     }
 
@@ -27,7 +27,7 @@ public class Base62Code {
         return Hashing.murmur3_32_fixed().hashString(str, StandardCharsets.UTF_8).padToLong();
     }
 
-    private String encodeFormLong(Long num){
+    private static String encodeFormLong(Long num){
         byte[] str = new byte[6];
         int idx =0;
         while(num!=0){
@@ -40,19 +40,21 @@ public class Base62Code {
     /*
     解码器
      */
-    public long decode(String str){
+    public static long decode(String str){
         long res = 0L;
+        long temp;
         int len = str.length();
         byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
         while(len-->0){
-            res = findValOfChar(bytes[len]) + res*BASE;
+            if((temp = findValOfChar(bytes[len]))<0) return -1L;
+            res = temp + res*BASE;
         }
         return res;
     }
 
-    private long findValOfChar(byte c){
+    private static long findValOfChar(byte c){
         if(c<='9'){
-            return c-'0' +0L;
+            return c-'0';
         }else if(c<='Z'){
             return c-'A'+10L;
         }else if(c<='z') {

@@ -1,35 +1,66 @@
 package com.dawn.shortlink;
 
-import com.dawn.shortlink.dao.ShortUrlDao;
-import com.dawn.shortlink.domain.UrlDO;
-import com.dawn.shortlink.service.UrlProcessService;
+import com.dawn.shortlink.dao.mappers.UrlMapper;
+import com.dawn.shortlink.domain.Base62CodeUtil;
+import com.dawn.shortlink.domain.ShortUrl;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.dao.DuplicateKeyException;
 
 import java.util.UUID;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+
 public class ShortLinkDaoTest extends ShortLinkApplicationTests{
 
     @Autowired
-    private ShortUrlDao dao;
-    @Autowired
-    private UrlProcessService service;
+    UrlMapper mapper;
+
 
     @Test
-    public void daoTest(){
-        System.out.println("测试开始");
-        UrlDO urlDO = new UrlDO(service.getShortUrlAndSave(UUID.randomUUID().toString().replace('-','.')+".com"));
-        System.out.println(urlDO.toString());
-        UrlDO res = dao.selectByShortUrl(urlDO.getShort_url());
-        System.out.println(res.toString());
-        System.out.println("测试结束");
+    public void urlMapperSaveTest(){
+        System.out.println("-----------Start---------");
+        String[] str = UUID.randomUUID().toString().split("-");
+        mapper.insertUrl(new ShortUrl(str[0].substring(0,3),str[1],str[2]));
     }
 
+    @Test
+    public void urlMapperSelectTest(){
+        String[] list =
+        {"http://xaxvoyqp.coop/odq",
+        "http://rdwslthh.na/jefwctofu",
+        "www.repeat.com",
+        "http://rmtuumkyj.kp/xwqqgwsf",
+        "http://sporrdyn.sl/jski",
+        "http://hpblvrqqb.pn/jhznp",
+        "http://sjgdff.dz/gjrfpk",
+        "http://vdcexk.info/fsvqet"};
+        for(String e:list){
+            ShortUrl shortUrl = mapper.selectByShortUrl(Base62CodeUtil.encode(e));
+            System.out.println(shortUrl.toString());
+        }
+
+    }
+
+    @Test
+    public void urlMapperNullTest(){
+        ShortUrl shortUrl = mapper.selectByShortUrl("123");
+        System.out.println(shortUrl);
+    }
+
+    @Test
+    public void urlMapperRepeatTest(){
+        try{
+            mapper.insertUrl(
+                    new ShortUrl(
+                            Base62CodeUtil.encode("www.repeat.com"),
+                            "www.repeat.com",
+                            ""));
+
+        }catch (DuplicateKeyException exception){
+            System.out.println("repeat");
+        }
+
+    }
 
 
 }

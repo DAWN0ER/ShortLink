@@ -1,53 +1,76 @@
 package com.dawn.shortlink.domain;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /*
 URL 的实体类
  */
+
 public class ShortUrl {
-    String short_url;
-    String origin_url;
-    Date created_time;
-    Date expired_time;
-    String description;
+    protected String shortUrl;
+    protected String originUrl;
+    protected String description;
+    protected Date createdTime;
+    protected  Date expiredTime;
 
-    public ShortUrl(String short_url, String origin_url, Date created_time, Date expired_time, String description) {
-        this.short_url = short_url;
-        this.origin_url = origin_url;
-        this.created_time = created_time;
-        this.expired_time = expired_time;
+    /*
+    默认存活时间为30天
+     */
+    public ShortUrl(String shortUrl, String originUrl, String description) {
+        this(shortUrl,originUrl,description,1000*60*60*24*30L); // 默认30天
+    }
+
+    /*
+    带过期时间的构造函数
+     */
+    public ShortUrl(String shortUrl, String originUrl, String description,long timeout){
+        this.shortUrl = shortUrl;
+        this.originUrl = originUrl;
         this.description = description;
+        this.createdTime = new Date();
+        this.expiredTime = new Date(createdTime.getTime()+timeout);
     }
 
-    public String getShort_url() {
-        return short_url;
+    /*
+    mybatis 数据库返回使用的构造函数
+     */
+    public ShortUrl(String shortUrl, String originUrl, String description, Date createdTime, Date expiredTime) {
+        this.shortUrl = shortUrl;
+        this.originUrl = originUrl;
+        this.description = description;
+        this.createdTime = createdTime;
+        this.expiredTime = expiredTime;
     }
 
-    public String getOrigin_url() {
-        return origin_url;
+    @Override
+    public String toString() {
+        return "ShortUrl{" +
+                "shortUrl='" + shortUrl + '\'' +
+                ", originUrl='" + originUrl + '\'' +
+                ", description='" + description + '\'' +
+                ", createdTime=" + createdTime +
+                ", expiredTime=" + expiredTime +
+                '}';
     }
 
-    public Date getCreated_time() {
-        return created_time;
+    public String getShortUrl() {
+        return shortUrl;
     }
 
-    public Date getExpired_time() {
-        return expired_time;
+    public String getOriginUrl() {
+        return originUrl;
     }
 
     public String getDescription() {
         return description;
     }
 
-    @Override
-    public String toString() {
-        return "ShortUrl{" +
-                "short_url='" + short_url + '\'' +
-                ", origin_url='" + origin_url + '\'' +
-                ", created_time=" + created_time +
-                ", expired_time=" + expired_time +
-                ", description='" + description + '\'' +
-                '}';
+    public Date getCreatedTime() {
+        return createdTime;
+    }
+
+    public Date getExpiredTime() {
+        return expiredTime;
     }
 }

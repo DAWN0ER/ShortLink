@@ -1,24 +1,24 @@
 package com.dawn.shortlink;
 
-import com.dawn.shortlink.domain.Base62Code;
+import com.dawn.shortlink.domain.Base62CodeUtil;
 import com.google.common.hash.Hashing;
 import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 public class SampleTest {
 
     @Test
     public void Base62enCodeTest(){
-        Base62Code demo = new Base62Code();
+//        Base62Code demo = new Base62Code();
         int turn = 900;
 
         String res;
         while (turn-->0){
-            res = demo.encode(UUID.randomUUID().toString());
+            res = Base62CodeUtil.encode(UUID.randomUUID().toString());
             System.out.println(res);
         }
 
@@ -26,15 +26,15 @@ public class SampleTest {
 
     @Test
     public void Base62deCodeTest(){
-        Base62Code demo = new Base62Code();
+//        Base62Code demo = new Base62Code();
 
         String testlist = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz000";
 
         for(int idx=0;idx<62;idx++){
             System.out.println(
-                    testlist.substring(idx,idx+1)
+                    testlist.charAt(idx)
                     + " = "
-                    + demo.decode(testlist.substring(idx,idx+1))
+                    + Base62CodeUtil.decode(testlist.substring(idx,idx+1))
             );
         }
 
@@ -43,7 +43,6 @@ public class SampleTest {
 
     @Test
     public void Base62CompareTest(){
-        Base62Code coder = new Base62Code();
         int turn = 10000;
         String tmp = null;
         String org = null;
@@ -53,8 +52,8 @@ public class SampleTest {
         while(turn-->0){
             org = UUID.randomUUID().toString();
             orgHash = Hashing.murmur3_32_fixed().hashString(org, StandardCharsets.UTF_8).padToLong();
-            tmp = coder.encode(org);
-            res = coder.decode(tmp);
+            tmp = Base62CodeUtil.encode(org);
+            res = Base62CodeUtil.decode(tmp);
             System.out.println(
                     "org="+org
                     + "; shortURL="+tmp
@@ -74,10 +73,6 @@ public class SampleTest {
 
     @Test
     public void Ts(){
-        Timestamp timestamp = new Timestamp(32341234543541L);
-        System.out.println(timestamp);
-        java.sql.Date date = new Date(timestamp.getTime());
-        System.out.println(date.getTime());
     }
 
 
