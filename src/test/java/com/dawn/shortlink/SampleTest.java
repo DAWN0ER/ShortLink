@@ -1,12 +1,10 @@
 package com.dawn.shortlink;
 
-import com.dawn.shortlink.domain.Base62CodeUtil;
+import com.dawn.shortlink.domain.utils.Base62CodeUtil;
 import com.google.common.hash.Hashing;
 import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.UUID;
 
 public class SampleTest {
@@ -73,6 +71,19 @@ public class SampleTest {
 
     @Test
     public void Ts(){
+        int n = 100000000;
+        double p  =0.0001;
+        int res = (int) (-n * Math.log(p) / (Math.log(2) * Math.log(2)));
+        System.out.println(res);
+        System.out.println(Integer.MAX_VALUE);
+    }
+
+    @Test
+    public void Tsts(){
+        for(int i=0;i<1e8;i++) {
+            String str = UUID.randomUUID().toString();
+            System.out.println("进度:" + i + " str:" + str );
+        }
     }
 
 

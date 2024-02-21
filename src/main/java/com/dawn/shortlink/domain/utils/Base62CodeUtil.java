@@ -1,4 +1,4 @@
-package com.dawn.shortlink.domain;
+package com.dawn.shortlink.domain.utils;
 
 import com.google.common.hash.Hashing;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,6 @@ public final class Base62CodeUtil {
 
     private static final long BASE = 62;
     private static final byte[] KEY_LIST = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".getBytes();
-
 
     /*
     编码器

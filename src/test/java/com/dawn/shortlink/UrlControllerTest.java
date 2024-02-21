@@ -1,9 +1,12 @@
 package com.dawn.shortlink;
 
 import com.dawn.shortlink.controller.UrlController;
+import com.dawn.shortlink.domain.ShortUrlRequestBody;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -27,12 +30,17 @@ public class UrlControllerTest extends ShortLinkApplicationTests{
 
     @Test
     public void saveTest() throws Exception {
+//        ShortUrlRequestBody r = new ShortUrlRequestBody("test_url","test_des",100);
+        String jsonstr = "{\"description\":\"test_des\",\"url\":\"test_url\",\"timeout\":100}";
+        System.out.println(jsonstr);
+
         MvcResult result = mockMvc.perform(
-                MockMvcRequestBuilders.post("/url/save_url")
-                        .param("URL","t4634.sioa.dfa.sd25/daw4")
-                        .param("description","ttdaskduh2385d3a你撒谎都st")
-                        .param("timeout","6846350")
-        ).andExpect(MockMvcResultMatchers.status().isOk())
+                MockMvcRequestBuilders.post("/shortlink/generate_short_url")
+                        .accept(MediaType.parseMediaType("application/json;charset=UTF-8"))
+                        .contentType("application/json")
+                        .content(jsonstr)
+        )
+                .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();
         System.out.println(result.getResponse().getContentAsString(Charset.defaultCharset()));

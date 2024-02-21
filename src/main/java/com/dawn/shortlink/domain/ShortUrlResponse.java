@@ -2,29 +2,19 @@ package com.dawn.shortlink.domain;
 
 public class ShortUrlResponse {
 
-    private final int state;
-    private final ShortUrl shortUrl;
-    private String description;
+    private final ShortUrlResponseStateEnum state;
+    private final String shortUrl;
 
-    public ShortUrlResponse(int state, ShortUrl shortUrl) {
+    public ShortUrlResponse(ShortUrlResponseStateEnum state, ShortUrlInfoDTO shortUrlInfoDTO) {
         this.state = state;
-        this.shortUrl = shortUrl;
-        switch (state){
-            case 1: this.description="已经存在的url"; break;
-            case 2: this.description="新url已保存"; break;
-            case 0: this.description="没有找到url信息";break;
-        }
+        this.shortUrl = shortUrlInfoDTO==null?null:shortUrlInfoDTO.getShortUrl();
     }
 
-    public int getState() {
+    public ShortUrlResponseStateEnum getState() {
         return state;
     }
 
-    public ShortUrl getShortUrl() {
+    public String getShortUrl() {
         return shortUrl;
-    }
-
-    public String getDescription() {
-        return description;
     }
 }

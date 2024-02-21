@@ -6,3 +6,18 @@ spring:
     username: root
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    port: 6379
+    host: localhost
+    database: 0
+    password:
+    timeout: 5000ms
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+#    redisson:
+#      password: ${spring.redis.password}
+#      address: redis://${spring.redis.host}:${spring.redis.port}

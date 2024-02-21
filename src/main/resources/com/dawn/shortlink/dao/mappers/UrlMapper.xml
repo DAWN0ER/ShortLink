@@ -3,7 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dawn.shortlink.dao.mappers.UrlMapper">
-
 <!--
 create table if not exists t_url_mapping
 (
@@ -19,11 +18,11 @@ create table if not exists t_url_mapping
     KEY expired_time (expired_time)
 )AUTO_INCREMENT=1;
 -->
-    <insert id="insertUrl" parameterType="com.dawn.shortlink.domain.ShortUrl">
+    <insert id="insertUrl" parameterType="com.dawn.shortlink.domain.ShortUrlInfoDTO">
         INSERT INTO t_url_mapping (short_url,origin_url,descrp,created_time,expired_time)
-        VALUES (#{shortUrl},#{originUrl},#{description},#{createdTime},#{expiredTime});
+        VALUES (#{shortUrlInfoDTO},#{originUrl},#{description},#{createdTime},#{expiredTime});
     </insert>
-    <select id="selectByShortUrl" parameterType="String" resultType="com.dawn.shortlink.domain.ShortUrl">
+    <select id="selectByShortUrl" parameterType="String" resultType="com.dawn.shortlink.domain.ShortUrlInfoDTO">
         SELECT short_url,origin_url,descrp,created_time,expired_time FROM t_url_mapping WHERE short_url = #{short_url};
     </select>
     <delete id="deleteTimeoutUrl" parameterType="java.util.Date">

@@ -18,8 +18,8 @@ public class ShortUrlServiceTest extends ShortLinkApplicationTests {
 //        System.out.println(service);
         ShortUrlResponse response = service.getShortUrl("www.repeat.com");
         System.out.println(response);
-        System.out.println(response.getDescription());
-        System.out.println(response.getShortUrl().toString());
+//        System.out.println(response.getDescription());
+//        System.out.println(response.getShortUrl().toString());
     }
 
 }

@@ -1,13 +1,12 @@
 package com.dawn.shortlink.domain;
 
-import java.util.Calendar;
 import java.util.Date;
 
 /*
-URL 的实体类
+URL 信息的实体类
  */
 
-public class ShortUrl {
+public class ShortUrlInfoDTO {
     protected String shortUrl;
     protected String originUrl;
     protected String description;
@@ -17,14 +16,14 @@ public class ShortUrl {
     /*
     默认存活时间为30天
      */
-    public ShortUrl(String shortUrl, String originUrl, String description) {
+    public ShortUrlInfoDTO(String shortUrl, String originUrl, String description) {
         this(shortUrl,originUrl,description,1000*60*60*24*30L); // 默认30天
     }
 
     /*
     带过期时间的构造函数
      */
-    public ShortUrl(String shortUrl, String originUrl, String description,long timeout){
+    public ShortUrlInfoDTO(String shortUrl, String originUrl, String description, long timeout){
         this.shortUrl = shortUrl;
         this.originUrl = originUrl;
         this.description = description;
@@ -35,7 +34,7 @@ public class ShortUrl {
     /*
     mybatis 数据库返回使用的构造函数
      */
-    public ShortUrl(String shortUrl, String originUrl, String description, Date createdTime, Date expiredTime) {
+    public ShortUrlInfoDTO(String shortUrl, String originUrl, String description, Date createdTime, Date expiredTime) {
         this.shortUrl = shortUrl;
         this.originUrl = originUrl;
         this.description = description;

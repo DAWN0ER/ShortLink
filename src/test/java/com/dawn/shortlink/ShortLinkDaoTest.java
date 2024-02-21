@@ -1,8 +1,8 @@
 package com.dawn.shortlink;
 
 import com.dawn.shortlink.dao.mappers.UrlMapper;
-import com.dawn.shortlink.domain.Base62CodeUtil;
-import com.dawn.shortlink.domain.ShortUrl;
+import com.dawn.shortlink.domain.utils.Base62CodeUtil;
+import com.dawn.shortlink.domain.ShortUrlInfoDTO;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -20,7 +20,7 @@ public class ShortLinkDaoTest extends ShortLinkApplicationTests{
     public void urlMapperSaveTest(){
         System.out.println("-----------Start---------");
         String[] str = UUID.randomUUID().toString().split("-");
-        mapper.insertUrl(new ShortUrl(str[0].substring(0,3),str[1],str[2]));
+        mapper.insertUrl(new ShortUrlInfoDTO(str[0].substring(0,3),str[1],str[2]));
     }
 
     @Test
@@ -35,23 +35,23 @@ public class ShortLinkDaoTest extends ShortLinkApplicationTests{
         "http://sjgdff.dz/gjrfpk",
         "http://vdcexk.info/fsvqet"};
         for(String e:list){
-            ShortUrl shortUrl = mapper.selectByShortUrl(Base62CodeUtil.encode(e));
-            System.out.println(shortUrl.toString());
+            ShortUrlInfoDTO shortUrlInfoDTO = mapper.selectByShortUrl(Base62CodeUtil.encode(e));
+            System.out.println(shortUrlInfoDTO.toString());
         }
 
     }
 
     @Test
     public void urlMapperNullTest(){
-        ShortUrl shortUrl = mapper.selectByShortUrl("123");
-        System.out.println(shortUrl);
+        ShortUrlInfoDTO shortUrlInfoDTO = mapper.selectByShortUrl("123");
+        System.out.println(shortUrlInfoDTO);
     }
 
     @Test
     public void urlMapperRepeatTest(){
         try{
             mapper.insertUrl(
-                    new ShortUrl(
+                    new ShortUrlInfoDTO(
                             Base62CodeUtil.encode("www.repeat.com"),
                             "www.repeat.com",
                             ""));
