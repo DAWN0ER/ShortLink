@@ -1,6 +1,6 @@
 package com.dawn.shortlink;
 
-import com.dawn.shortlink.domain.utils.Base62CodeUtil;
+import com.dawn.shortlink.service.domain.utils.Base62CodeUtil;
 import com.google.common.hash.Hashing;
 import org.junit.jupiter.api.Test;
 
@@ -75,7 +75,8 @@ public class SampleTest {
         double p  =0.0001;
         int res = (int) (-n * Math.log(p) / (Math.log(2) * Math.log(2)));
         System.out.println(res);
-        System.out.println(Integer.MAX_VALUE);
+        System.out.println(Long.MAX_VALUE);
+        System.out.println(Double.MIN_VALUE);
     }
 
     @Test

@@ -18,6 +18,11 @@ spring:
         max-wait: -1ms
         max-idle: 8
         min-idle: 0
-#    redisson:
-#      password: ${spring.redis.password}
-#      address: redis://${spring.redis.host}:${spring.redis.port}
+my:
+  bloom_filters:
+    - name: "shortUrl"
+      expectedInsertions: 100000000
+      fpp: 0.001
+    - name: "longUrl"
+      expectedInsertions: 100000000
+      fpp: 0.0001

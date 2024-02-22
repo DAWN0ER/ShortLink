@@ -1,7 +1,7 @@
 package com.dawn.shortlink.service;
-import com.dawn.shortlink.domain.ShortUrlResponse;
+import com.dawn.shortlink.service.domain.pojo.ShortUrlResponse;
 
 public interface ShortUrlService {
-    ShortUrlResponse getShortUrl(String originUrl);
+    ShortUrlResponse getOriginUrl(String shortUrl);
     ShortUrlResponse saveUrl(String originUrl,String description,long timeout);
 }

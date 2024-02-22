@@ -1,11 +1,14 @@
 package com.dawn.shortlink;
 
-import com.dawn.shortlink.domain.utils.BloomFilterUtil;
+import com.dawn.shortlink.service.domain.utils.BloomFilter;
+import com.dawn.shortlink.service.domain.utils.BloomFilterSet;
+import com.google.common.hash.Funnels;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
+import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
 import java.util.HashSet;
 import java.util.UUID;
@@ -14,6 +17,8 @@ public class RedisTest extends ShortLinkApplicationTests{
 
     @Autowired
     RedisTemplate redisTemplate;
+    @Autowired
+    BloomFilterSet BFset;
 
 
     @Test
@@ -29,8 +34,8 @@ public class RedisTest extends ShortLinkApplicationTests{
 
     @Test
     public void bloomFilterTest(){
-        BloomFilterUtil BL = new BloomFilterUtil(1000,0.01,redisTemplate);
-        BloomFilterUtil BL2 = new BloomFilterUtil(100,0.1,redisTemplate);
+        BloomFilter BL = new BloomFilter(1000,0.01,redisTemplate);
+        BloomFilter BL2 = new BloomFilter(100,0.1,redisTemplate);
         System.out.println(
                 "BL="+BL.hashCode()+"; "
                 +"BL2="+BL2.hashCode()+"; "
@@ -43,15 +48,21 @@ public class RedisTest extends ShortLinkApplicationTests{
         );
     }
 
+
     @Test
     public void bloomMutilTest(){
-        BloomFilterUtil filter = new BloomFilterUtil(1000000,0.0,redisTemplate);
+//        BloomFilter filter = new BloomFilter(1000000,0.0,redisTemplate);
         HashSet<String> set = new HashSet<>();
+
+        BloomFilter filter = BFset.getBloomFilter("longUrl");
+
         System.out.println("测试开始");
-        for(int i=0;i<5e4;i++){
+        int tmp =1000;
+
+        for(int i=0;i<tmp*100;i++){
             String str = UUID.randomUUID().toString();
-            if(i%10000==0)System.out.println("进度:"+i/500+"%测试; ");
-            if(i<1000) set.add(str);
+            if(i%tmp==0) System.out.print("\r"+i/tmp);
+            if(i<tmp*10) set.add(str);
             filter.add(str,redisTemplate);
         }
         int count1 = 0;
@@ -60,7 +71,6 @@ public class RedisTest extends ShortLinkApplicationTests{
             if(filter.mightContains(s,redisTemplate)) count1++;
         }
         System.out.println("一轮结束");
-        int tmp =100000;
         for(int i=0;i<tmp;i++){
             String s;
             do{
@@ -71,9 +81,15 @@ public class RedisTest extends ShortLinkApplicationTests{
 
         System.out.println(
                 "存在的判断率=" + count1 +"/" + set.size()
-                +"不存在但误判" + count2 +"/" + tmp
+                +"\n不存在但误判" + count2 +"/" + tmp
         );
+    }
 
+
+    @Test
+    public void guavaStudyTest(){
+        com.google.common.hash.BloomFilter filter = com.google.common.hash.BloomFilter.create(Funnels.stringFunnel(StandardCharsets.UTF_8),100,0.01);
+        filter.put("sd");
     }
 
 }

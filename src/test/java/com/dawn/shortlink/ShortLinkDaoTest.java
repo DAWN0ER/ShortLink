@@ -1,8 +1,8 @@
 package com.dawn.shortlink;
 
 import com.dawn.shortlink.dao.mappers.UrlMapper;
-import com.dawn.shortlink.domain.utils.Base62CodeUtil;
-import com.dawn.shortlink.domain.ShortUrlInfoDTO;
+import com.dawn.shortlink.service.domain.utils.Base62CodeUtil;
+import com.dawn.shortlink.service.domain.pojo.ShortUrlInfoDTO;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -25,19 +25,6 @@ public class ShortLinkDaoTest extends ShortLinkApplicationTests{
 
     @Test
     public void urlMapperSelectTest(){
-        String[] list =
-        {"http://xaxvoyqp.coop/odq",
-        "http://rdwslthh.na/jefwctofu",
-        "www.repeat.com",
-        "http://rmtuumkyj.kp/xwqqgwsf",
-        "http://sporrdyn.sl/jski",
-        "http://hpblvrqqb.pn/jhznp",
-        "http://sjgdff.dz/gjrfpk",
-        "http://vdcexk.info/fsvqet"};
-        for(String e:list){
-            ShortUrlInfoDTO shortUrlInfoDTO = mapper.selectByShortUrl(Base62CodeUtil.encode(e));
-            System.out.println(shortUrlInfoDTO.toString());
-        }
 
     }
 

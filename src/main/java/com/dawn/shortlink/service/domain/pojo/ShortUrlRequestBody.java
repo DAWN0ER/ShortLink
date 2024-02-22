@@ -1,4 +1,4 @@
-package com.dawn.shortlink.domain;
+package com.dawn.shortlink.service.domain.pojo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ShortUrlRequestBody {

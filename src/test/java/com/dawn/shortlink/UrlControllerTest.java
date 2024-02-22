@@ -1,7 +1,6 @@
 package com.dawn.shortlink;
 
 import com.dawn.shortlink.controller.UrlController;
-import com.dawn.shortlink.domain.ShortUrlRequestBody;
 
 import org.junit.Before;
 import org.junit.Test;

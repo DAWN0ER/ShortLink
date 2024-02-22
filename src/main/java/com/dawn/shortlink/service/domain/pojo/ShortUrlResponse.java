@@ -1,13 +1,13 @@
-package com.dawn.shortlink.domain;
+package com.dawn.shortlink.service.domain.pojo;
 
 public class ShortUrlResponse {
 
     private final ShortUrlResponseStateEnum state;
     private final String shortUrl;
 
-    public ShortUrlResponse(ShortUrlResponseStateEnum state, ShortUrlInfoDTO shortUrlInfoDTO) {
+    public ShortUrlResponse(ShortUrlResponseStateEnum state, String shortUrl) {
         this.state = state;
-        this.shortUrl = shortUrlInfoDTO==null?null:shortUrlInfoDTO.getShortUrl();
+        this.shortUrl = shortUrl;
     }
 
     public ShortUrlResponseStateEnum getState() {

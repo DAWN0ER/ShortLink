@@ -1,4 +1,4 @@
-package com.dawn.shortlink.domain.utils;
+package com.dawn.shortlink.service.domain.utils;
 
 
 import com.google.common.hash.Hashing;
@@ -14,15 +14,17 @@ import java.nio.charset.StandardCharsets;
 本身作为 redis 的 key 来操作 redis 里面储存的位图
 最多支持 1e9/fpp=0.0001 数据的插入
  */
-public class BloomFilterUtil implements Serializable {
+
+public class BloomFilter implements Serializable {
 
     private final int numBits;
     private final int numHashFunctions;
 
-    public BloomFilterUtil(int expectedInsertions, double fpp, @NotNull RedisTemplate template) {
+
+    public BloomFilter(int expectedInsertions, double fpp, RedisTemplate template) {
         this.numBits = optimalNumOfBits(expectedInsertions, fpp);
         this.numHashFunctions = optimalNumOfHashFunctions(expectedInsertions, numBits);
-        template.opsForValue().set(this, new long[((numBits-1) >> 6) + 1]); // 这个是抄的 BitMap 的, 本身不占用空间
+        template.opsForValue().set(this, new long[((numBits-1) >> 6) + 1]); // 这个是抄的 BitMap 的, 这个类本身不占用空间
     }
 
     /*
@@ -59,7 +61,7 @@ public class BloomFilterUtil implements Serializable {
     }
 
     /*
-        下面的全是抄的 guava 里面的 bloom filter 的方法
+        下面的全是借鉴的 guava 里面的 bloom filter 的方法
         计算最佳 hash 函数个数和计算最佳位图的大小
         */
     private static int optimalNumOfHashFunctions(int n, int m) {

@@ -1,14 +1,24 @@
-package com.dawn.shortlink.domain;
+package com.dawn.shortlink.service.domain.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.FileInputStream;
+
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ShortUrlResponseStateEnum {
-    ERROR(-1,"错误信息"),
-    COLLISIONS(-2,"传入链接冲突"),
+
+    GOAL(1,"查询到结果"),
     SUCCESS(0,"成功保存"),
-    NOTFOUND(-3,"未找到相应短链接"),
-    GOAL(1,"查询到结果");
+
+    ERROR(-1,"错误信息"),
+    FAILURE(-1,"服务运行失败"),
+
+    COLLISIONS(-2,"传入链接冲突"),
+    ALREADY_SAVED(-2,"链接已经被保存"),
+
+    NOTFOUND(-3,"未找到相应短链接");
+
+
 
     private final int code;
     private final String massage;
