@@ -1,4 +1,4 @@
-package com.dawn.shortlink.service.domain.utils;
+package com.dawn.shortlink.domain.utils;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

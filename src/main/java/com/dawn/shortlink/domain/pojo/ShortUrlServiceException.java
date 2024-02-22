@@ -1,4 +1,4 @@
-package com.dawn.shortlink.service.domain.pojo;
+package com.dawn.shortlink.domain.pojo;
 
 public class ShortUrlServiceException extends RuntimeException{
     public ShortUrlServiceException(String s) {

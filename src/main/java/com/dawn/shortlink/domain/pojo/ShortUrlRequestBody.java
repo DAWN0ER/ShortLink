@@ -1,15 +1,14 @@
-package com.dawn.shortlink.service.domain.pojo;
-import com.fasterxml.jackson.annotation.JsonProperty;
+package com.dawn.shortlink.domain.pojo;
 
 public class ShortUrlRequestBody {
 
-    public String url;
+    public String originUrl;
     public String description;
     public long timeout;
 
 
-    public ShortUrlRequestBody(String url, String description, int timeout) {
-        this.url = url;
+    public ShortUrlRequestBody(String originUrl, String description, int timeout) {
+        this.originUrl = originUrl;
         this.description = description;
         this.timeout = timeout;
     }
@@ -17,8 +16,8 @@ public class ShortUrlRequestBody {
     public ShortUrlRequestBody() {
     }
 
-    public String getUrl() {
-        return url;
+    public String getOriginUrl() {
+        return originUrl;
     }
 
     public String getDescription() {
@@ -29,8 +28,8 @@ public class ShortUrlRequestBody {
         return timeout;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setOriginUrl(String originUrl) {
+        this.originUrl = originUrl;
     }
 
     public void setDescription(String description) {

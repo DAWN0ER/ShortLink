@@ -20,9 +20,11 @@ spring:
         min-idle: 0
 my:
   bloom_filters:
-    - name: "shortUrl"
-      expectedInsertions: 100000000
+    - name: ${my.short_url_filter_name}
+      expectedInsertions: 1000000
       fpp: 0.001
-    - name: "longUrl"
-      expectedInsertions: 100000000
-      fpp: 0.0001
+    - name: ${my.long_url_filter_name}
+      expectedInsertions: 1000000
+      fpp: 0.001
+  long_url_filter_name: "longUrlBloomFilter"
+  short_url_filter_name: "shortUrlBloomFilter"

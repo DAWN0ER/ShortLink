@@ -1,4 +1,4 @@
-package com.dawn.shortlink.service.domain.utils;
+package com.dawn.shortlink.domain.utils;
 
 public class BloomFilterConfParam {
     private String name;

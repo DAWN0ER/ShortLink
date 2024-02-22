@@ -1,4 +1,4 @@
-package com.dawn.shortlink.service.domain.pojo;
+package com.dawn.shortlink.domain.pojo;
 
 import java.util.Date;
 

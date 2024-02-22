@@ -1,8 +1,8 @@
 package com.dawn.shortlink;
 
 import com.dawn.shortlink.dao.mappers.UrlMapper;
-import com.dawn.shortlink.service.domain.utils.Base62CodeUtil;
-import com.dawn.shortlink.service.domain.pojo.ShortUrlInfoDTO;
+import com.dawn.shortlink.domain.utils.Base62CodeUtil;
+import com.dawn.shortlink.domain.pojo.ShortUrlInfoDTO;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;

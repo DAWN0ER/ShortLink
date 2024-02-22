@@ -1,4 +1,4 @@
-package com.dawn.shortlink.service.domain.utils;
+package com.dawn.shortlink.domain.utils;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class BloomFilterSet {
     }
 
     private void creatBloomFilter(String name, int expectedInsertions, double fpp, RedisTemplate redis){
-        this.bfMap.put(name,new BloomFilter(expectedInsertions,fpp,redis));
+        this.bfMap.put(name,new BloomFilter(name,expectedInsertions,fpp,redis));
     }
 
     public BloomFilter getBloomFilter(String name){

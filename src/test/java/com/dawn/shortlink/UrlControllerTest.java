@@ -29,8 +29,7 @@ public class UrlControllerTest extends ShortLinkApplicationTests{
 
     @Test
     public void saveTest() throws Exception {
-//        ShortUrlRequestBody r = new ShortUrlRequestBody("test_url","test_des",100);
-        String jsonstr = "{\"description\":\"test_des\",\"url\":\"test_url\",\"timeout\":100}";
+        String jsonstr = "{\"description\":\"test_des\",\"originUrl\":\"test_url\",\"timeout\":100}";
         System.out.println(jsonstr);
 
         MvcResult result = mockMvc.perform(
@@ -48,8 +47,8 @@ public class UrlControllerTest extends ShortLinkApplicationTests{
     @Test
     public void getUrlTest() throws Exception {
         MvcResult result = mockMvc.perform(
-                MockMvcRequestBuilders.post("/url/get_short_url")
-                        .param("URL","www.repecdsat.com")
+                MockMvcRequestBuilders.get("/shortlink/get_origin_url")
+                        .param("short_url","Q63qw1")
         ).andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();

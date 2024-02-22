@@ -1,6 +1,6 @@
 package com.dawn.shortlink;
 
-import com.dawn.shortlink.service.domain.utils.Base62CodeUtil;
+import com.dawn.shortlink.domain.utils.Base62CodeUtil;
 import com.google.common.hash.Hashing;
 import org.junit.jupiter.api.Test;
 

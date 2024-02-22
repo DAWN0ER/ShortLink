@@ -1,4 +1,4 @@
-package com.dawn.shortlink.service.domain.pojo;
+package com.dawn.shortlink.domain.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -16,7 +16,7 @@ public enum ShortUrlResponseStateEnum {
     COLLISIONS(-2,"传入链接冲突"),
     ALREADY_SAVED(-2,"链接已经被保存"),
 
-    NOTFOUND(-3,"未找到相应短链接");
+    NOTFOUND(-3,"未找到短链接相关信息");
 
 
 

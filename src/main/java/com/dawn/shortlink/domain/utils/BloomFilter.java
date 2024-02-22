@@ -1,4 +1,4 @@
-package com.dawn.shortlink.service.domain.utils;
+package com.dawn.shortlink.domain.utils;
 
 
 import com.google.common.hash.Hashing;
@@ -19,18 +19,21 @@ public class BloomFilter implements Serializable {
 
     private final int numBits;
     private final int numHashFunctions;
+    private final String name;
 
 
-    public BloomFilter(int expectedInsertions, double fpp, RedisTemplate template) {
+    public BloomFilter(String name, int expectedInsertions, double fpp, @NotNull RedisTemplate template) {
+        this.name = name;
         this.numBits = optimalNumOfBits(expectedInsertions, fpp);
         this.numHashFunctions = optimalNumOfHashFunctions(expectedInsertions, numBits);
-        template.opsForValue().set(this, new long[((numBits-1) >> 6) + 1]); // 这个是抄的 BitMap 的, 这个类本身不占用空间
+        if(!template.hasKey(this.name)) // 当 redis 中存在就不覆盖了
+            template.opsForValue().set(this.name, new long[((numBits-1) >> 6) + 1]); // 这个是抄的 BitMap 的, 这个类本身不占用空间
     }
 
     /*
     计算通过 bloom 过滤器产生的 offset , 也是直接借鉴的 guava 的代码
      */
-    private int[] murmurHashOffset(String str){
+    private int @NotNull [] murmurHashOffset(String str){
         long hash64 = Hashing.murmur3_128().hashString(str, StandardCharsets.UTF_8).padToLong();
         int hash32_1 = (int) hash64;
         int hash32_2 = (int) (hash64 >>> 32);
@@ -47,7 +50,7 @@ public class BloomFilter implements Serializable {
         ValueOperations ops = redis.opsForValue();
         int[] offsets = this.murmurHashOffset(string);
         for(int offset:offsets){
-            if(Boolean.FALSE.equals(ops.getBit(this, offset))) return false;
+            if(Boolean.FALSE.equals(ops.getBit(this.name, offset))) return false;
         }
         return true;
     }
@@ -56,7 +59,7 @@ public class BloomFilter implements Serializable {
         ValueOperations ops = redis.opsForValue();
         int[] offsets = this.murmurHashOffset(str);
         for(int offset:offsets){
-            ops.setBit(this,offset,true);
+            ops.setBit(this.name,offset,true);
         }
     }
 

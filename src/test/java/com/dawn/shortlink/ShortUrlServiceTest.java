@@ -1,7 +1,8 @@
 package com.dawn.shortlink;
 
-import com.dawn.shortlink.service.domain.utils.BloomFilterConfiguration;
-import com.dawn.shortlink.service.domain.utils.BloomFilterSet;
+import com.dawn.shortlink.domain.pojo.UrlResponse;
+import com.dawn.shortlink.domain.utils.BloomFilterConfiguration;
+import com.dawn.shortlink.domain.utils.BloomFilterSet;
 import com.dawn.shortlink.service.ShortUrlService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,23 @@ public class ShortUrlServiceTest extends ShortLinkApplicationTests {
     BloomFilterSet set;
 
     @Test
-    public void getFunctionTest(){
-
+    public void saveFunctionTest(){
+        UrlResponse url = service.saveUrl("www.repeat.com", "test", 100);
+        System.out.println(
+                url.getState().getCode() + "; "
+                + url.getState().getMassage() +";"
+                + url.getUrl() + ";"
+        );
     }
 
     @Test
-    public void getBFTest(){
-
+    public void getFunctionTest(){
+        UrlResponse url = service.getOriginUrl("wu80C1");
+        System.out.println(
+                url.getState().getCode() + "; "
+                        + url.getState().getMassage() +";"
+                        + url.getUrl() + ";"
+        );
     }
 
 }
