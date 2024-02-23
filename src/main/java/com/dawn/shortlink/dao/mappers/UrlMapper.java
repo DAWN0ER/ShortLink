@@ -10,4 +10,5 @@ public interface UrlMapper {
     void insertUrl(ShortUrlInfoDTO shortUrlInfoDTO);
     ShortUrlInfoDTO selectByShortUrl(String shortUrl);
     void deleteTimeoutUrl(Date date);
+    String selectOriginUrlByShortUrl(String shortUrl);
 }

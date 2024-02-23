@@ -1,5 +1,6 @@
 package com.dawn.shortlink.controller;
 
+import com.dawn.shortlink.domain.pojo.ShortUrlInfoVO;
 import com.dawn.shortlink.domain.pojo.ShortUrlRequestBody;
 import com.dawn.shortlink.domain.pojo.UrlResponse;
 import com.dawn.shortlink.service.ShortUrlService;
@@ -21,8 +22,7 @@ public class UrlController {
     @RequestMapping(path = "/generate_short_url",method = RequestMethod.POST) // 生成短链接 generate_short_url
     @ResponseBody
     public UrlResponse saveURL(@RequestBody ShortUrlRequestBody requestBody){
-//        return shortUrlService.saveUrl(requestBody.getUrl(),requestBody.getDescription(),requestBody.getTimeout());
-        return shortUrlService.saveUrl(requestBody.originUrl,requestBody.getDescription(),requestBody.getTimeout());
+        return shortUrlService.generateUrl(new ShortUrlInfoVO(requestBody));
     }
 
     /*

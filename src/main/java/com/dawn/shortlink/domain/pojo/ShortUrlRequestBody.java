@@ -7,7 +7,7 @@ public class ShortUrlRequestBody {
     public long timeout;
 
 
-    public ShortUrlRequestBody(String originUrl, String description, int timeout) {
+    public ShortUrlRequestBody(String originUrl, String description, long timeout) {
         this.originUrl = originUrl;
         this.description = description;
         this.timeout = timeout;

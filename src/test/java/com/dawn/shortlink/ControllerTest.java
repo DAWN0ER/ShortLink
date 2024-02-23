@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.nio.charset.Charset;
 
-public class UrlControllerTest extends ShortLinkApplicationTests{
+public class ControllerTest extends ShortLinkApplicationTests{
 
     @Autowired
     UrlController urlController;
@@ -29,7 +29,7 @@ public class UrlControllerTest extends ShortLinkApplicationTests{
 
     @Test
     public void saveTest() throws Exception {
-        String jsonstr = "{\"description\":\"test_des\",\"originUrl\":\"test_url\",\"timeout\":100}";
+        String jsonstr = "{\"description\":\"test_des\",\"originUrl\":\"test_url_v2.0\",\"timeout\":1000}";
         System.out.println(jsonstr);
 
         MvcResult result = mockMvc.perform(
@@ -44,11 +44,15 @@ public class UrlControllerTest extends ShortLinkApplicationTests{
         System.out.println(result.getResponse().getContentAsString(Charset.defaultCharset()));
     }
 
+    /*
+    uGh6a1
+
+     */
     @Test
     public void getUrlTest() throws Exception {
         MvcResult result = mockMvc.perform(
                 MockMvcRequestBuilders.get("/shortlink/get_origin_url")
-                        .param("short_url","Q63qw1")
+                        .param("short_url","uGh6a1")
         ).andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();

@@ -18,7 +18,7 @@ public final class Base62CodeUtil {
     /*
     编码器
      */
-    public static String encode(String originUrl){
+    public static String hashAndEncode(String originUrl){
         return encodeFormLong(murmurHashString(originUrl));
     }
 

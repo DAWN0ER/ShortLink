@@ -9,7 +9,7 @@ spring:
   redis:
     port: 6379
     host: localhost
-    database: 0
+    database: 2 #数据库2用来同步mysql
     password:
     timeout: 5000ms
     jedis:
@@ -18,13 +18,3 @@ spring:
         max-wait: -1ms
         max-idle: 8
         min-idle: 0
-my:
-  bloom_filters:
-    - name: ${my.short_url_filter_name}
-      expectedInsertions: 1000000
-      fpp: 0.001
-    - name: ${my.long_url_filter_name}
-      expectedInsertions: 1000000
-      fpp: 0.001
-  long_url_filter_name: "longUrlBloomFilter"
-  short_url_filter_name: "shortUrlBloomFilter"

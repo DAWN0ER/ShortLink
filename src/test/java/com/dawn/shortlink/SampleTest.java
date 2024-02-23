@@ -7,6 +7,11 @@ import org.junit.jupiter.api.Test;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
+
+/*
+这个类主要是为了做一些简单的不依赖 spring 的测试
+ */
+
 public class SampleTest {
 
     @Test
@@ -16,7 +21,7 @@ public class SampleTest {
 
         String res;
         while (turn-->0){
-            res = Base62CodeUtil.encode(UUID.randomUUID().toString());
+            res = Base62CodeUtil.hashAndEncode(UUID.randomUUID().toString());
             System.out.println(res);
         }
 
@@ -50,7 +55,7 @@ public class SampleTest {
         while(turn-->0){
             org = UUID.randomUUID().toString();
             orgHash = Hashing.murmur3_32_fixed().hashString(org, StandardCharsets.UTF_8).padToLong();
-            tmp = Base62CodeUtil.encode(org);
+            tmp = Base62CodeUtil.hashAndEncode(org);
             res = Base62CodeUtil.decode(tmp);
             System.out.println(
                     "org="+org

@@ -3,18 +3,18 @@ package com.dawn.shortlink.domain.pojo;
 public class UrlResponse {
 
     private final ShortUrlResponseStateEnum state;
-    private final String url;
+    private final String data;
 
     public UrlResponse(ShortUrlResponseStateEnum state, String url) {
         this.state = state;
-        this.url = url;
+        this.data = url;
     }
 
     public ShortUrlResponseStateEnum getState() {
         return state;
     }
 
-    public String getUrl() {
-        return url;
+    public String getData() {
+        return data;
     }
 }
