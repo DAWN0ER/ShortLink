@@ -17,7 +17,7 @@ public class ServiceTest extends ShortLinkApplicationTests {
 
     @Test
     public void saveFunctionTest(){
-        UrlResponse url = service.generateUrl(new ShortUrlInfoVO("www.repeat.com", "test", 100L));
+        UrlResponse url = service.generateUrl(new ShortUrlInfoVO("www.repeat.com.2", "test", 100L));
         System.out.println(
                 url.getState().getCode() + "; "
                 + url.getState().getMassage() +";"

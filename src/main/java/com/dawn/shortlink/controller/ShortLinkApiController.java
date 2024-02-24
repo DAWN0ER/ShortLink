@@ -1,19 +1,15 @@
 package com.dawn.shortlink.controller;
 
-import com.dawn.shortlink.domain.pojo.ShortUrlInfoVO;
-import com.dawn.shortlink.domain.pojo.ShortUrlRequestBody;
-import com.dawn.shortlink.domain.pojo.UrlResponse;
+import com.dawn.shortlink.domain.pojo.*;
 import com.dawn.shortlink.service.ShortUrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
-/*
-@TODO
- */
+
 @RestController
-@RequestMapping("/shortlink")
-public class UrlController {
+@RequestMapping("/api/shortlink")
+public class ShortLinkApiController {
 
     @Autowired
     @Qualifier("ShortUrlCacheServiceImpl")
@@ -25,14 +21,15 @@ public class UrlController {
         return shortUrlService.generateUrl(new ShortUrlInfoVO(requestBody));
     }
 
-    /*
-    TODO 需求有误
-     */
     @RequestMapping(path = "/get_origin_url",method = RequestMethod.GET )
     @ResponseBody
     public UrlResponse getShortUrl(@RequestParam("short_url") String url){
         return shortUrlService.getOriginUrl(url);
     }
 
+    @GetMapping("/test")
+    public String netTest(){
+        return "Hello world!";
+    }
 
 }

@@ -18,8 +18,6 @@ public class DaoTest extends ShortLinkApplicationTests{
     UrlMapper mapper;
     @Autowired
     CacheUrlMapperDecorator cacheMapper;
-    @Autowired
-    RedisTemplate<String,String> redis;
 
 
     @Test
@@ -30,19 +28,8 @@ public class DaoTest extends ShortLinkApplicationTests{
     }
 
     @Test
-    public void urlMapperSelectTest(){
-        String test = "wu80C1";
-        System.out.println(
-                redis.opsForValue().get(test) + "\n"
-                + cacheMapper.selectOriginUrlByShortUrl("wu80C1") + "\n"
-                + redis.opsForValue().get(test)
-        );
-
-    }
-
-    @Test
     public void urlMapperNullTest(){
-        ShortUrlInfoDTO shortUrlInfoDTO = mapper.selectByShortUrl("123");
+        ShortUrlInfoDTO shortUrlInfoDTO = mapper.selectOneByShortUrl("123");
         System.out.println(shortUrlInfoDTO);
     }
 
@@ -62,10 +49,18 @@ public class DaoTest extends ShortLinkApplicationTests{
     }
 
     @Test
-    public void simpleSelectTest(){
+    public void cacheUrlMapperTest(){
+        String str = cacheMapper.selectOriginUrlByShortUrl("k0irG3");
         System.out.println(
-                mapper.selectOriginUrlByShortUrl("wu80C1")
+                "result: \""
+                + str
+                +"\""
         );
+    }
+
+    @Test
+    public void timeoutTest(){
+
     }
 
 

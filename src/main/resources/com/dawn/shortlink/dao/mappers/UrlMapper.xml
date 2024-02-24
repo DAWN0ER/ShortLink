@@ -22,15 +22,8 @@ create table if not exists t_url_mapping
         INSERT INTO t_url_mapping (short_url,origin_url,descrp,created_time,expired_time)
         VALUES (#{shortUrl},#{originUrl},#{description},#{createdTime},#{expiredTime});
     </insert>
-    <select id="selectByShortUrl" parameterType="String" resultType="com.dawn.shortlink.domain.pojo.ShortUrlInfoDTO">
+    <select id="selectOneByShortUrl" parameterType="String" resultType="com.dawn.shortlink.domain.pojo.ShortUrlInfoDTO">
         SELECT short_url,origin_url,descrp,created_time,expired_time FROM t_url_mapping WHERE short_url = #{short_url};
     </select>
-    <select id="selectOriginUrlByShortUrl" parameterType="String" resultType="String">
-        SELECT origin_url FROM t_url_mapping WHERE short_url = #{short_url};
-    </select>
-    <delete id="deleteTimeoutUrl" parameterType="java.util.Date">
-        DELETE FROM t_url_mapping WHERE expired_time &lt; #{Date};
-<!--        还未测试-->
-    </delete>
     
 </mapper>

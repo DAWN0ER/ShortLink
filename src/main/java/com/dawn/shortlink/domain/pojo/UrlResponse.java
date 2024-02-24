@@ -1,20 +1,20 @@
 package com.dawn.shortlink.domain.pojo;
 
-public class UrlResponse {
+public class UrlResponse<T> {
 
     private final ShortUrlResponseStateEnum state;
-    private final String data;
+    private final T data;
 
-    public UrlResponse(ShortUrlResponseStateEnum state, String url) {
+    public UrlResponse(ShortUrlResponseStateEnum state, T data) {
         this.state = state;
-        this.data = url;
+        this.data = data;
     }
 
     public ShortUrlResponseStateEnum getState() {
         return state;
     }
 
-    public String getData() {
+    public T getData() {
         return data;
     }
 }

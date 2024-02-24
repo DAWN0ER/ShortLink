@@ -1,9 +1,11 @@
 package com.dawn.shortlink;
 
+import net.bytebuddy.implementation.bytecode.ShiftRight;
 import org.junit.Test;
 import org.redisson.api.RBloomFilter;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.HashSet;
@@ -14,7 +16,12 @@ public class RedisTest extends ShortLinkApplicationTests{
     @Autowired
     RedisTemplate<String,String> redisTemplate;
     @Autowired
+    @Qualifier("BloomFilterRedisson")
     RedissonClient client;
+    @Autowired
+    @Qualifier("UrlCacheRedisson")
+    RedissonClient cacheClient;
+
 
     @Test
     public void redissonTest(){
@@ -24,12 +31,22 @@ public class RedisTest extends ShortLinkApplicationTests{
         else System.out.println(bloomFilter.getExpectedInsertions());
     }
 
-
     @Test
-    public void sampleTest(){
+    public void simpleTest(){
+        System.out.println(cacheClient.getBucket("sss").get());
+        System.out.println(cacheClient.getBucket("sss").delete()+"\n");
+        cacheClient.getKeys().getKeys().forEach(System.out::println);
 
     }
 
+    @Test
+    public void bfTest(){
+        String u = "http://localhost:8787/api/shortlink/test";
+        RBloomFilter<Object> filter = client.getBloomFilter("longUrlBloomFilter");
+        System.out.println(
+                filter.contains(u)
+        );
+    }
 
     @Test
     public void bloomMutilTest(){
@@ -71,4 +88,16 @@ public class RedisTest extends ShortLinkApplicationTests{
 
 
     }
+
+    @Test
+    public void cacheTest(){
+        String shortUrl = "k0irG3";
+//        String url = "http://localhost:8787/api/shortlink/test";
+//        cacheClient.getBucket(shortUrl).set(url);
+        Object res = cacheClient.getBucket(shortUrl).get();
+        System.out.println(res);
+        cacheClient.getKeys().getKeys().forEach(System.out::println);
+        cacheClient.getBucket(shortUrl).delete();
+    }
+
 }

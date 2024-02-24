@@ -42,6 +42,7 @@ public class ShortUrlInfoDTO {
         this.expiredTime = expiredTime;
     }
 
+
     @Override
     public String toString() {
         return "ShortUrl{" +
