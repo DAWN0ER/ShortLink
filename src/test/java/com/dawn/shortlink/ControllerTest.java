@@ -32,7 +32,9 @@ public class ControllerTest extends ShortLinkApplicationTests{
     @Test
     public void saveTest() throws Exception {
 
-        ShortUrlRequestBody req = new ShortUrlRequestBody("http://localhost:8787/api/shortlink/test","本机测试",100000000L);
+        String url = "https://zhuanlan.zhihu.com/p/671865953";
+        ShortUrlRequestBody req = new ShortUrlRequestBody( url,
+                "随机测试",100000000L);
         ObjectMapper mapper = new ObjectMapper();
         String jsonstr = mapper.writeValueAsString(req);
         System.out.println(jsonstr);
@@ -49,15 +51,12 @@ public class ControllerTest extends ShortLinkApplicationTests{
         System.out.println(result.getResponse().getContentAsString(Charset.defaultCharset()));
     }
 
-    /*
-    uGh6a1
 
-     */
     @Test
     public void getUrlTest() throws Exception {
         MvcResult result = mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/shortlink/get_origin_url")
-                        .param("short_url","k0irG3")
+                        .param("short_url","5oFxe3")
         ).andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();

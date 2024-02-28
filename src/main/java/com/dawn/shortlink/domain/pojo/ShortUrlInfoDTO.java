@@ -21,9 +21,10 @@ public class ShortUrlInfoDTO {
     }
 
     /*
-    带过期时间的构造函数
+    带过期时间的构造函数, 默认存活时间为30天
      */
     public ShortUrlInfoDTO(String shortUrl, String originUrl, String description, long timeout){
+        if(timeout<=0) timeout = 1000*60*60*24*30L;
         this.shortUrl = shortUrl;
         this.originUrl = originUrl;
         this.description = description;

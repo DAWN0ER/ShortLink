@@ -91,11 +91,12 @@ public class RedisTest extends ShortLinkApplicationTests{
 
     @Test
     public void cacheTest(){
-        String shortUrl = "k0irG3";
+        String shortUrl = "asdewrzds";
 //        String url = "http://localhost:8787/api/shortlink/test";
 //        cacheClient.getBucket(shortUrl).set(url);
-        Object res = cacheClient.getBucket(shortUrl).get();
-        System.out.println(res);
+        System.out.println(cacheClient.getBucket(shortUrl));
+        System.out.println(cacheClient.getBucket(shortUrl).get());
+//        System.out.println(cacheClient.getBucket(shortUrl).get().equals("ds"));
         cacheClient.getKeys().getKeys().forEach(System.out::println);
         cacheClient.getBucket(shortUrl).delete();
     }
