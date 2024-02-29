@@ -9,4 +9,5 @@ import java.util.Date;
 public interface UrlMapper {
     void insertUrl(ShortUrlInfoDTO shortUrlInfoDTO);
     ShortUrlInfoDTO selectOneByShortUrl(String shortUrl);
+    void deleteExpired(Date now);
 }

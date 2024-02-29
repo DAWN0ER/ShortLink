@@ -25,5 +25,9 @@ create table if not exists t_url_mapping
     <select id="selectOneByShortUrl" parameterType="String" resultType="com.dawn.shortlink.domain.pojo.ShortUrlInfoDTO">
         SELECT short_url,origin_url,descrp,created_time,expired_time FROM t_url_mapping WHERE short_url = #{short_url};
     </select>
+    <delete id="deleteExpired" parameterType="Date">
+        DELETE FROM t_url_mapping WHERE expired_time &lt; #{now} ;
+        OPTIMIZE TABLE t_url_mapping;
+    </delete>
     
 </mapper>
