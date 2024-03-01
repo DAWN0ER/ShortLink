@@ -23,6 +23,6 @@ public class TimedCleanJob extends QuartzJobBean {
     @Override
     @Transactional(rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-        urlMapper.deleteExpired(new Date());
+        urlMapper.deleteExpired();
     }
 }
