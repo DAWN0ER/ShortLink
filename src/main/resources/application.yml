@@ -1,19 +1,52 @@
 server:
   port: 8787
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
 spring:
-  datasource:
-    short-link:
-      url: jdbc:mysql://localhost:3306/shortlink?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=GMT%2B8
-      username: root
-      password: 1234
-      driver-class-name: com.mysql.cj.jdbc.Driver
-    quartz:
-      url: jdbc:mysql://localhost:3306/quartz?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=GMT%2B8
-      username: root
-      password: 1234
-      driver-class-name: com.mysql.cj.jdbc.Driver
+  shardingsphere:
+    enabled: true
+    # 多数据源
+    datasource:
+      names: shortlink0,shortlink1,quartz
+      shortlink0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://localhost:3306/shortlink0?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=GMT%2B8
+        username: root
+        password: 1234
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      shortlink1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://localhost:3306/shortlink1?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=GMT%2B8
+        username: root
+        password: 1234
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      quartz:
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://localhost:3306/quartz?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=GMT%2B8
+        username: root
+        password: 1234
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    # 分片设置
+    sharding:
+      tables:
+        t_url_mapping:
+          database-strategy:
+            standard:
+              sharding-column: short_url
+              precise-algorithm-class-name: com.dawn.shortlink.domain.strategy.MyDatabasePreciseAlgorithm
+          table-strategy:
+            standard:
+              sharding-column: short_url
+              precise-algorithm-class-name: com.dawn.shortlink.domain.strategy.MyTablePreciseAlgorithm
+          actualDataNodes: shortlink$->{0..1}.t_url_mapping$->{0..1}
+      default-data-source-name: quartz # 默认数据源给 quartz 来用
+    props:
+      sql:
+        show: false
 
-#Redis 相关配置
+  #Redis 相关配置
   redis:
     port: 6379
     host: localhost

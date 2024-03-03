@@ -2,11 +2,12 @@ package com.dawn.shortlink;
 
 import com.dawn.shortlink.dao.mappers.UrlMapper;
 import com.dawn.shortlink.domain.pojo.ShortUrlInfoDTO;
+import com.google.common.hash.Hashing;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 
 
 public class DaoTest extends ShortLinkApplicationTests{
@@ -20,13 +21,28 @@ public class DaoTest extends ShortLinkApplicationTests{
         System.out.println(infoDTO.toString());
     }
 
-    @Test
-    public void insertTest() throws InterruptedException {
-        TimeUnit.SECONDS.sleep(10); // 测试定时任务
-        ShortUrlInfoDTO urlInfoDTO = new ShortUrlInfoDTO("test","www.baidu.com",
+    private long f(String str){
+        return Hashing.murmur3_32_fixed().hashString(str, StandardCharsets.UTF_8).padToLong();
+    }
+
+    private void ts(){
+        String url = UUID.randomUUID().toString().substring(0,4);
+        System.out.println(
+                "========== URL = " + url
+                        + ", NODE = " + (f(url)%4)/2 + "." +f(url)%2
+        );
+
+        ShortUrlInfoDTO urlInfoDTO = new ShortUrlInfoDTO(url,"www.baidu.com",
                 "desc",
-                5*1000L);
+                500L);
+//        System.out.println(urlInfoDTO.toString());
         mapper.insertUrl(urlInfoDTO);
+    }
+
+    @Test
+    public void insertTest() {
+        int k = 10;
+//        while (k-->0) ts();
     }
 
 
